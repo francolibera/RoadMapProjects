@@ -19,16 +19,16 @@ async function fetchActivity() {
 
         if (!response.ok) {
             if (response.status === 404) {
-                throw new Error("Usuario no encontrado.");
+                throw new Error("User not found.");
             }
-            throw new Error(`Error al obtener datos: ${response.status}`);
+            throw new Error(`Error fetching data: ${response.status}`);
         }
 
 
         const data = (await response.json()) as any[];
 
         if (data.length === 0) {
-            console.log("Este usuario no tiene actividad reciente.");
+            console.log("This user has no recent activity.");
             return;
         }
 
@@ -80,12 +80,12 @@ async function fetchActivity() {
                 console.log(`- ${action}`);
 
             } catch (err) {
-                console.error(`❌ Error procesando evento: ${(err as Error).message}`);
+                console.error(`Error processing event: ${(err as Error).message}`);
             }
         } 
 
     } catch (error: any) {
-        console.error(`❌ Error general: ${error.message}`);
+        console.error(` General error: ${error.message}`);
     }
 }
 
