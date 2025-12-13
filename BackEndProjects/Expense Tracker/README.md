@@ -72,10 +72,4 @@ After setting up the application, you can start adding your expenses and managin
 
 If you would like to contribute to the Expense Tracker, feel free to submit a pull request or open an issue for discussion.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
 Happy tracking!
