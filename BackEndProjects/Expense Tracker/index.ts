@@ -1,4 +1,4 @@
-import { initializeFiles, getExpenses, addExpense, addBudget, getBudgets, summarizeExpensesByCategory, summarizeExpensesByMonth, deleteExpense } from "./expenseService.js";
+import { initializeFiles, getExpenses, addExpense, addBudget, getBudgets, summarizeExpensesByCategory, summarizeExpensesByMonth, deleteExpense, sumarizeAllExpenses, deleteBudget } from "./expenseService.js";
 
 const args = process.argv.slice(2);
 
@@ -68,6 +68,18 @@ switch (command) {
     break;
   case 'summarize-by-month':
     summarizeExpensesByMonth();
+    break;
+  case 'summarize-all':
+    sumarizeAllExpenses();
+    break;
+  case 'delete-budget':
+    const budgetIdStr = getArgValue('--id');
+    const budgetId = budgetIdStr ? Number(budgetIdStr) : NaN;
+    if (isNaN(budgetId)) {
+      console.log('Usage: pnpm expense-tracker delete-budget --id 1');
+    } else {
+      deleteBudget(budgetId);
+    }
     break;
   default:
     console.log('Unknown command. Available commands: init, list, add');
