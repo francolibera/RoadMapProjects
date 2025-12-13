@@ -1,4 +1,4 @@
-import { initializeFiles, getExpenses, addExpense } from "./expenseService.js";
+import { initializeFiles, getExpenses, addExpense, addBudget, getBudgets, summarizeExpensesByCategory, summarizeExpensesByMonth } from "./expenseService.js";
 
 const args = process.argv.slice(2);
 
@@ -32,6 +32,33 @@ switch (command) {
     } else {
       addExpense(description, amount, category);
     }
+    break;
+  case 'add-budget':
+    const totalAmountStr = getArgValue('--totalAmount');
+    const monthStr = getArgValue('--month');
+    const yearStr = getArgValue('--year');
+    const totalAmount = totalAmountStr ? Number(totalAmountStr) : NaN;
+    const month = monthStr ? Number(monthStr) : NaN;
+    const year = yearStr ? Number(yearStr) : NaN;
+    if (isNaN(totalAmount) || isNaN(month) || isNaN(year)) {
+      console.log('Usage: pnpm expense-tracker add-budget --totalAmount 5000 --month 6 --year 2024');
+    } else {
+      addBudget(totalAmount, month, year);
+    }
+    break;
+  case 'get-budgets':
+    const budgets = getBudgets();
+    if (budgets.length === 0) {
+      console.log('No budgets found.');
+    } else {
+      console.table(budgets);
+    }
+    break;
+  case 'summarize-by-category':
+    summarizeExpensesByCategory();
+    break;
+  case 'summarize-by-month':
+    summarizeExpensesByMonth();
     break;
   default:
     console.log('Unknown command. Available commands: init, list, add');
