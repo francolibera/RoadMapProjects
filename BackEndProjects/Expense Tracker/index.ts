@@ -1,4 +1,4 @@
-import { initializeFiles, getExpenses, addExpense, addBudget, getBudgets, summarizeExpensesByCategory, summarizeExpensesByMonth } from "./expenseService.js";
+import { initializeFiles, getExpenses, addExpense, addBudget, getBudgets, summarizeExpensesByCategory, summarizeExpensesByMonth, deleteExpense } from "./expenseService.js";
 
 const args = process.argv.slice(2);
 
@@ -31,6 +31,15 @@ switch (command) {
       console.log('Usage: pnpm expense-tracker add --description "Food" --amount 1000 --category "Food"');
     } else {
       addExpense(description, amount, category);
+    }
+    break;
+  case 'delete':
+    const idStr = getArgValue('--id');
+    const id = idStr ? Number(idStr) : NaN;
+    if (isNaN(id)) {
+      console.log('Usage: pnpm expense-tracker delete --id 1');
+    } else {
+      deleteExpense(id);
     }
     break;
   case 'add-budget':

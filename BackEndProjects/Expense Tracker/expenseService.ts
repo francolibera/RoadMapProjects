@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import { expense, budget } from './expenseInterface';
+import { emitWarning } from 'process';
 
 export function initializeFiles(): void {
   if (!fs.existsSync('expenses.json')) {
@@ -28,6 +29,7 @@ export const addExpense = (description: string, amount: number, category:string)
   expenses.push(newExpense);
   fs.writeFileSync('expenses.json', JSON.stringify(expenses, null, 2));
   console.log(`Expense added successfully: ${description} - $${amount}`);
+  warningBudgetExceeded(newExpense.date.getMonth() + 1, newExpense.date.getFullYear());
 }
 
 export const getBudgets = (): budget[] => {
@@ -91,5 +93,26 @@ export const summarizeExpensesByMonth = (): void => {
   console.log("Expense Summary by Month:");
   for (const monthYear in summary) {
     console.log(`- ${monthYear}: $${summary[monthYear]}`);
+  }
+}
+
+export const deleteExpense = (id: number): void => {
+  const expenses = getExpenses();
+  const filteredExpenses = expenses.filter(expense => expense.id !== id);
+  fs.writeFileSync('expenses.json', JSON.stringify(filteredExpenses, null, 2));
+  console.log(`Expense with ID ${id} deleted successfully.`);
+}
+
+export const warningBudgetExceeded = (month: number, year: number): void => {
+  const expenses = getExpensesByMonth(month, year);
+  const budgets = getBudgets().filter(budget => budget.month === month && budget.year === year);
+  if (budgets.length === 0) {
+    console.log(`No budget set for ${month}/${year}.`);
+    return;
+  }
+  const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+  const budgetAmount = budgets[0].totalAmount;
+  if (totalExpenses > budgetAmount) {
+    console.log(`Budget exceeded for ${month}/${year}: $${totalExpenses} spent, budget was $${budgetAmount}.`);
   }
 }

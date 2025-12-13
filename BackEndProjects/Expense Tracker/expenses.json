@@ -12,5 +12,12 @@
     "description": "Test",
     "category": "Hello",
     "date": "2025-12-13T20:42:55.282Z"
+  },
+  {
+    "id": 3,
+    "amount": 10000,
+    "description": "Pendrive",
+    "category": "Technology",
+    "date": "2025-12-13T21:00:54.757Z"
   }
 ]
