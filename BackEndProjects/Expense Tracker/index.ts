@@ -1,4 +1,4 @@
-import { initializeFiles, getExpenses, addExpense, addBudget, getBudgets, summarizeExpensesByCategory, summarizeExpensesByMonth, deleteExpense, sumarizeAllExpenses, deleteBudget } from "./expenseService.js";
+import { initializeFiles, getExpenses, addExpense, addBudget, getBudgets, updateBudget, updateExpense, summarizeExpensesByCategory, summarizeExpensesByMonth, deleteExpense, sumarizeAllExpenses, deleteBudget } from "./expenseService.js";
 
 const args = process.argv.slice(2);
 
@@ -42,6 +42,30 @@ switch (command) {
       deleteExpense(id);
     }
     break;
+  case 'update-expense':
+    const expenseIdStr = getArgValue('--id');
+    const expenseId = expenseIdStr ? Number(expenseIdStr) : NaN;
+    const newDescription = getArgValue('--description');
+    const newAmountStr = getArgValue('--amount');
+    const newCategory = getArgValue('--category');
+    const newAmount = newAmountStr ? Number(newAmountStr) : undefined;
+    if (isNaN(expenseId)) {
+      console.log('Usage: pnpm expense-tracker update-expense --id 1 [--description "New Desc"] [--amount 2000] [--category "New Cat"]');
+    } else {
+      updateExpense(expenseId, newDescription, newAmount, newCategory);
+    }
+    break;
+  case 'update-budget':
+    const budgetIdStr = getArgValue('--id');
+    const budgetId = budgetIdStr ? Number(budgetIdStr) : NaN;
+    const newTotalAmountStr = getArgValue('--totalAmount');
+    const newTotalAmount = newTotalAmountStr ? Number(newTotalAmountStr) : undefined;
+    if (isNaN(budgetId)) {
+      console.log('Usage: pnpm expense-tracker update-budget --id 1 [--totalAmount 6000]');
+    } else {
+      updateBudget(budgetId, newTotalAmount);
+    }
+    break;
   case 'add-budget':
     const totalAmountStr = getArgValue('--totalAmount');
     const monthStr = getArgValue('--month');
@@ -73,12 +97,12 @@ switch (command) {
     sumarizeAllExpenses();
     break;
   case 'delete-budget':
-    const budgetIdStr = getArgValue('--id');
-    const budgetId = budgetIdStr ? Number(budgetIdStr) : NaN;
-    if (isNaN(budgetId)) {
+    const deleteBudgetIdStr = getArgValue('--id');
+    const deleteBudgetId = deleteBudgetIdStr ? Number(deleteBudgetIdStr) : NaN;
+    if (isNaN(deleteBudgetId)) {
       console.log('Usage: pnpm expense-tracker delete-budget --id 1');
     } else {
-      deleteBudget(budgetId);
+      deleteBudget(deleteBudgetId);
     }
     break;
   default:

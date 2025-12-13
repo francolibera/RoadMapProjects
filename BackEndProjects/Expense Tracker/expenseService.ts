@@ -52,7 +52,45 @@ export const addBudget = (totalAmount: number, month: number, year: number): voi
   console.log(`Budget added successfully: $${totalAmount} for ${month}/${year}`);
 }
 
+export const updateExpense = (id: number, description?: string, amount?: number, category?: string): void => {
+  const expenses = getExpenses();
+  const expenseIndex = expenses.findIndex(expense => expense.id === id);
+  if (expenseIndex === -1) {
+    console.log(`Expense with ID ${id} not found.`);
+    return;
+  }
+  if (description !== undefined) {
+    expenses[expenseIndex].description = description;
+  }
+  if (amount !== undefined) {
+    expenses[expenseIndex].amount = amount;
+  }
+  if (category !== undefined) {
+    expenses[expenseIndex].category = category;
+  }
+  fs.writeFileSync('expenses.json', JSON.stringify(expenses, null, 2));
+  console.log(`Expense with ID ${id} updated successfully.`);
+}
 
+export const updateBudget = (id: number, totalAmount?: number, month?: number, year?: number): void => {
+  const budgets = getBudgets();
+  const budgetIndex = budgets.findIndex(budget => budget.id === id);
+  if (budgetIndex === -1) {
+    console.log(`Budget with ID ${id} not found.`);
+    return;
+  }
+  if (totalAmount !== undefined) {
+    budgets[budgetIndex].totalAmount = totalAmount;
+  }
+  if (month !== undefined) {
+    budgets[budgetIndex].month = month;
+  }
+  if (year !== undefined) {
+    budgets[budgetIndex].year = year;
+  }
+  fs.writeFileSync('budgets.json', JSON.stringify(budgets, null, 2));
+  console.log(`Budget with ID ${id} updated successfully.`);
+}
 
 export const getExpensesByCategory = (category: string): expense[] => {
   const expenses = getExpenses();
