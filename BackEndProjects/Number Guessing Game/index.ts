@@ -1,8 +1,7 @@
 import { generateRandomNumber } from "./numberGenerator.js";
 import sreadline from 'readline';
-import { easyLevel } from "./difficulties.js";
+import { easyLevel, mediumLevel, hardLevel } from "./difficulties.js";
 
-// 1. Creamos la interfaz UNA sola vez
 const rl = sreadline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -66,12 +65,12 @@ function handleResponse(option: string): void {
       
     case "2":
       console.log("Create mode: Medium level (5 attempts).");
-      playGame(5, randomNumber); 
+      playGame(mediumLevel.attempts, randomNumber); 
       break;
 
     case "3":
       console.log("Create mode: Hard level (3 attempts).");
-      playGame(3, randomNumber); 
+      playGame(hardLevel.attempts, randomNumber); 
       break;
 
     case "4":
