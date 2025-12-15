@@ -7,6 +7,8 @@ const rl = sreadline.createInterface({
   output: process.stdout
 });
 
+let highScore = 999;
+
 function showMenu(): void {
   console.log(`
   Welcome to the Number Guessing Game!
@@ -20,8 +22,7 @@ function showMenu(): void {
     `);
 }
 
-function playGame(attemptsLeft: number, randomNumber: number, start_time: number): void {
-    
+function playGame(attemptsLeft: number, randomNumber: number, start_time: number, total_lives: number): void {
     if (attemptsLeft === 0) {
         console.log(`
           ❌ Sorry, you've run out of attempts. The number was ${randomNumber}.`);
@@ -29,18 +30,23 @@ function playGame(attemptsLeft: number, randomNumber: number, start_time: number
         return;
     }
 
-    console.log(randomNumber); 
     rl.question(`Make your guess (Attempts left: ${attemptsLeft}): `, (guess: string) => {
         const userGuess = parseInt(guess);
 
         if (isNaN(userGuess)) {
             console.log("⚠️ Please enter a valid number.");
-            playGame(attemptsLeft, randomNumber, start_time); 
+            playGame(attemptsLeft, randomNumber, start_time, total_lives); 
             return;
         }
 
         if (userGuess === randomNumber) {
             console.log("🎉 Congratulations! You've guessed the number!");
+            const attemptsUsed = total_lives - attemptsLeft + 1;
+            if (attemptsUsed < highScore) {
+            
+              console.log(`🏆 New record! You guessed the number in ${attemptsUsed} attempts!`);
+              highScore = attemptsUsed;
+            }
             const end_time = Date.now();
             const time_taken = ((end_time - start_time) / 1000).toFixed(2);
             console.log(`⏱️ You took ${time_taken} seconds to guess the number.`);
@@ -53,7 +59,7 @@ function playGame(attemptsLeft: number, randomNumber: number, start_time: number
             }
 
             
-            playGame(attemptsLeft - 1, randomNumber, start_time);
+            playGame(attemptsLeft - 1, randomNumber, start_time, total_lives);
         }
     });
 }
@@ -64,17 +70,17 @@ function handleResponse(option: string): void {
   switch (option) {
     case "1":
       console.log("Create mode: Easy level (10 attempts).");
-      playGame(easyLevel.attempts, randomNumber, start_time);
+      playGame(easyLevel.attempts, randomNumber, start_time, 10);
       break;
       
     case "2":
       console.log("Create mode: Medium level (5 attempts).");
-      playGame(mediumLevel.attempts, randomNumber, start_time); 
+      playGame(mediumLevel.attempts, randomNumber, start_time, 5); 
       break;
 
     case "3":
       console.log("Create mode: Hard level (3 attempts).");
-      playGame(hardLevel.attempts, randomNumber, start_time); 
+      playGame(hardLevel.attempts, randomNumber, start_time, 3); 
       break;
 
     case "4":
