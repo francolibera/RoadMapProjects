@@ -20,7 +20,7 @@ function showMenu(): void {
     `);
 }
 
-function playGame(attemptsLeft: number, randomNumber: number): void {
+function playGame(attemptsLeft: number, randomNumber: number, start_time: number): void {
     
     if (attemptsLeft === 0) {
         console.log(`
@@ -35,12 +35,15 @@ function playGame(attemptsLeft: number, randomNumber: number): void {
 
         if (isNaN(userGuess)) {
             console.log("⚠️ Please enter a valid number.");
-            playGame(attemptsLeft, randomNumber); 
+            playGame(attemptsLeft, randomNumber, start_time); 
             return;
         }
 
         if (userGuess === randomNumber) {
             console.log("🎉 Congratulations! You've guessed the number!");
+            const end_time = Date.now();
+            const time_taken = ((end_time - start_time) / 1000).toFixed(2);
+            console.log(`⏱️ You took ${time_taken} seconds to guess the number.`);
             asktoPlayAgain();
         } else {
             if (userGuess < randomNumber) {
@@ -50,28 +53,28 @@ function playGame(attemptsLeft: number, randomNumber: number): void {
             }
 
             
-            playGame(attemptsLeft - 1, randomNumber);
+            playGame(attemptsLeft - 1, randomNumber, start_time);
         }
     });
 }
 
 function handleResponse(option: string): void {
   const randomNumber = generateRandomNumber();
-
+  const start_time = Date.now();
   switch (option) {
     case "1":
       console.log("Create mode: Easy level (10 attempts).");
-      playGame(easyLevel.attempts, randomNumber);
+      playGame(easyLevel.attempts, randomNumber, start_time);
       break;
       
     case "2":
       console.log("Create mode: Medium level (5 attempts).");
-      playGame(mediumLevel.attempts, randomNumber); 
+      playGame(mediumLevel.attempts, randomNumber, start_time); 
       break;
 
     case "3":
       console.log("Create mode: Hard level (3 attempts).");
-      playGame(hardLevel.attempts, randomNumber); 
+      playGame(hardLevel.attempts, randomNumber, start_time); 
       break;
 
     case "4":
