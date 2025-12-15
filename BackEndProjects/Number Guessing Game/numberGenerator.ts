@@ -3,3 +3,4 @@ export const generateRandomNumber = (): number => {
     const max = 100;
     return Math.floor(Math.random()*(max-min+1))+min;
   }
+

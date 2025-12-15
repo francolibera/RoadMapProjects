@@ -23,8 +23,9 @@ function showMenu(): void {
 function playGame(attemptsLeft: number, randomNumber: number): void {
     
     if (attemptsLeft === 0) {
-        console.log(`❌ Sorry, you've run out of attempts. The number was ${randomNumber}.`);
-        rl.close(); 
+        console.log(`
+          ❌ Sorry, you've run out of attempts. The number was ${randomNumber}.`);
+        asktoPlayAgain();
         return;
     }
 
@@ -40,7 +41,7 @@ function playGame(attemptsLeft: number, randomNumber: number): void {
 
         if (userGuess === randomNumber) {
             console.log("🎉 Congratulations! You've guessed the number!");
-            rl.close(); 
+            asktoPlayAgain();
         } else {
             if (userGuess < randomNumber) {
                 console.log(`Incorrect! The number is greater than ${userGuess}.`);
@@ -76,12 +77,25 @@ function handleResponse(option: string): void {
     case "4":
       console.log("Goodbye! 👋");
       rl.close();
+      break;
 
     default:
       console.log("❌ Invalid selection. Please choose 1, 2, 3, or 4.");
       startGame(); 
       break;
   }
+}
+
+function asktoPlayAgain(): void {
+  rl.question("Do you want to play again? (yes/no): ", (answer: string) => {
+    const response = answer.trim().toLowerCase();
+    if (response === "yes" || response === "y") {
+      startGame();
+    } else {
+      console.log("Thanks for playing! Goodbye! 👋")
+      rl.close();
+    }
+  });
 }
 
 function startGame(): void {
