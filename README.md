@@ -8,7 +8,7 @@ Collection of projects completed from [roadmap.sh](https://roadmap.sh/dashboard)
 - **GitHub User Activity**: Fetches and displays a user's public activity. [View on roadmap.sh](https://roadmap.sh/projects/github-user-activity)
 - **Expense Tracker**: CLI to record and list expenses with budgets. [View on roadmap.sh](https://roadmap.sh/projects/expense-tracker)
 - **Number Guessing Game**: CLI-based game, where you need to use the command line to interact with the game. [View on roadmap.sh](https://roadmap.sh/projects/number-guessing-game)
-- **Unit Converter**: [View on roadmap.sh](https://roadmap.sh/projects/unit-converter)
+- **Unit Converter**: Web app to convert length, weight, and temperature (Express + TypeScript). Live: https://unit-converter-lvh1.onrender.com/index.html. [View on roadmap.sh](https://roadmap.sh/projects/unit-converter)
 
 ## Repository Structure
 
