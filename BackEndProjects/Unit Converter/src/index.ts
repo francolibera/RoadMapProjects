@@ -1,8 +1,36 @@
 import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url'; // <--- 1. Importa esto
+import { fileURLToPath } from 'url'; 
 
-// 2. Recreamos __filename y __dirname
+const formatNumber = (num: number) => Number.isInteger(num) ? num.toString() : num.toFixed(4).replace(/\.?0+$/, '');
+
+function generateResultHtml(val: number, from: string, res: number, to: string, backUrl: string) {
+  return `
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resultado</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+        <div class="sketch-container" style="text-align: center;">
+            <h1>Unit Converter</h1>
+
+            <p class="result-label">Result of your calculation</p>
+
+            <div class="result-value">
+                ${formatNumber(val)} ${from} = <strong>${formatNumber(res)} ${to}</strong>
+            </div>
+
+            <a href="${backUrl}" class="button-link">Reset</a>
+        </div>
+    </body>
+    </html>
+  `;
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -31,15 +59,10 @@ app.post('/convert-length', (req, res) => {
 
   const valueInMeters = value * (lengthRates[fromUnit] ?? 1);
 
-  console.log(fromUnit);
   const result = valueInMeters / (lengthRates[toUnit] ?? 1);
 
   
-  res.send(`
-    <h1>Resultado</h1>
-        <p>${value} ${fromUnit} son <strong>${result.toFixed(4)} ${toUnit}</strong></p>
-        <a href="/index.html">Volver</a>
-  `);
+  res.send(generateResultHtml(value, fromUnit, result, toUnit, '/index.html'));
 });
 
 const temperarureRates: Record<string, number> = {
@@ -61,11 +84,7 @@ app.post('/convert-temperature', (req, res) => {
                  toUnit === 'fahrenheit' ? (valueInCelsius * 9/5) + 32 :
                  valueInCelsius + 273.15;
 
-  res.send(`
-    <h1>Resultado</h1>
-        <p>${value} ${fromUnit} son <strong>${result.toFixed(2)} ${toUnit}</strong></p>
-        <a href="/temperature.html">Volver</a>
-  `);
+  res.send(generateResultHtml(value, fromUnit, result, toUnit, '/temperature.html'));
 } );
 
 const weightRates: Record<string, number> = {
@@ -83,11 +102,7 @@ app.post('/convert-weight', (req, res) => {
   const valueInKilograms = value * (weightRates[fromUnit] ?? 1);
 
   const result = valueInKilograms / (weightRates[toUnit] ?? 1);
-  res.send(`
-    <h1>Resultado</h1>
-        <p>${value} ${fromUnit} son <strong>${result.toFixed(4)} ${toUnit}</strong></p>
-        <a href="/weight.html">Volver</a>
-  `);
+  res.send(generateResultHtml(value, fromUnit, result, toUnit, '/weight.html'));
 } );
 
 app.listen(PORT, () => {
