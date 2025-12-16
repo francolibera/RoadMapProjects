@@ -23,36 +23,30 @@
 
   <main>
 
-    <form id="converter-form">
-      <label for="value">Value:</label>
-      <input type="number" id="value" name="value" required>
-
-      <label for="from-unit">From:</label>
-      <select id="from-unit" name="from-unit" required>
-        <option value = "milligrams"> Milligrams </option>
-        <option value = "grams"> Grams </option>
-        <option value = "kilograms"> Kilograms </option>
-        <option value = "ounces"> Ounces </option>
-        <option value = "pounds"> Pounds </option>
-      </select>
-
-      <label for="to-unit">To:</label>
-      <select id="to-unit" name="to-unit" required>
+    <form action="/convert-weight" method="POST">
+    
+      <label>Valor a convertir:</label>
+      <input type="number" name="value" required step="any">
+    
+      <label>Desde:</label>
+      <select name="fromUnit">
         <option value="milligrams"> Milligrams </option>
         <option value="grams"> Grams </option>
         <option value="kilograms"> Kilograms </option>
         <option value="ounces"> Ounces </option>
         <option value="pounds"> Pounds </option>
       </select>
-
-      <button type="submit">Convert</button>
-      <div id="result">
-
-
-
-      </div>
-
-
+    
+      <label>Hacia:</label>
+      <select name="toUnit">
+        <option value="milligrams"> Milligrams </option>
+        <option value="grams"> Grams </option>
+        <option value="kilograms"> Kilograms </option>
+        <option value="ounces"> Ounces </option>
+        <option value="pounds"> Pounds </option>
+      </select>
+    
+      <button type="submit">Convertir</button>
     </form>
 
   </main>
@@ -61,3 +55,4 @@
 </body>
 
 </html>
+
