@@ -14,14 +14,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
 const lengthRates: Record<string, number> = {
-  millimeter: 0.001,
-  centimeter: 0.01,
-  meter: 1,
-  kilometer: 1000,
-  inch: 0.0254,
-  foot: 0.3048,
-  yard: 0.9144,
-  mile: 1609.34,
+  millimeters: 0.001,
+  centimeters: 0.01,
+  meters: 1,
+  kilometers: 1000,
+  inches: 0.0254,
+  feet: 0.3048,
+  yards: 0.9144,
+  miles: 1609.34,
 };
 
 app.post('/convert-length', (req, res) => {
@@ -31,8 +31,10 @@ app.post('/convert-length', (req, res) => {
 
   const valueInMeters = value * (lengthRates[fromUnit] ?? 1);
 
+  console.log(fromUnit);
   const result = valueInMeters / (lengthRates[toUnit] ?? 1);
 
+  
   res.send(`
     <h1>Resultado</h1>
         <p>${value} ${fromUnit} son <strong>${result.toFixed(4)} ${toUnit}</strong></p>
@@ -63,6 +65,28 @@ app.post('/convert-temperature', (req, res) => {
     <h1>Resultado</h1>
         <p>${value} ${fromUnit} son <strong>${result.toFixed(2)} ${toUnit}</strong></p>
         <a href="/temperature.html">Volver</a>
+  `);
+} );
+
+const weightRates: Record<string, number> = {
+  milligrams: 0.000001,
+  grams: 0.001,
+  kilograms: 1,
+  ounces: 0.0283495,
+  pounds: 0.453592,
+};
+
+app.post('/convert-weight', (req, res) => {
+  const value = parseFloat(req.body.value);
+  const fromUnit = req.body.fromUnit;
+  const toUnit = req.body.toUnit;
+  const valueInKilograms = value * (weightRates[fromUnit] ?? 1);
+
+  const result = valueInKilograms / (weightRates[toUnit] ?? 1);
+  res.send(`
+    <h1>Resultado</h1>
+        <p>${value} ${fromUnit} son <strong>${result.toFixed(4)} ${toUnit}</strong></p>
+        <a href="/weight.html">Volver</a>
   `);
 } );
 

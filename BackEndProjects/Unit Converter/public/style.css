@@ -1,0 +1,170 @@
+/* --- IMPORTAR FUENTE DE ESTILO MANUAL --- */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+/* --- CONFIGURACIÓN GENERAL (El papel de fondo) --- */
+body {
+  /* Un color crema muy claro, como papel viejo */
+  background-color: #fcfcfa;
+  /* Opcional: si encuentras una imagen de textura de papel, úsala así:
+       background-image: url('paper-texture.png'); */
+
+  font-family: 'Patrick Hand', cursive, sans-serif;
+  color: #333;
+  /* Color tipo lápiz grafito oscuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+/* --- EL CONTENEDOR PRINCIPAL (El recuadro del dibujo) --- */
+.sketch-container {
+  background-color: #fff;
+  padding: 30px 40px;
+  width: 100%;
+  max-width: 500px;
+  /* Ancho similar al de la imagen de referencia */
+
+  /* EL TRUCO DEL BORDE IRREGULAR:
+       Usamos radios de borde con porcentajes diferentes para cada esquina,
+       creando una forma sutilmente "tambaleante". */
+  border: 3px solid #333;
+  border-radius: 2% 5% 3% 4% / 4% 2% 5% 3%;
+
+  /* LA SOMBRA TIPO BOCETO:
+       Una sombra sólida (sin difuminar), desplazada hacia abajo y derecha. */
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.15);
+
+  /* Para que los elementos internos no se peguen al borde */
+  box-sizing: border-box;
+}
+
+/* --- TIPOGRAFÍA --- */
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  font-size: 2.5rem;
+}
+
+/* Estilo para los links del menú (como en la imagen) */
+.sketch-nav {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  border-bottom: 3px dashed #ccc;
+  /* Línea punteada tipo cuaderno */
+  padding-bottom: 10px;
+}
+
+.sketch-nav a {
+  text-decoration: none;
+  color: #555;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+/* El enlace activo se ve como subrayado con marcador azul, como en la referencia */
+.sketch-nav a.active {
+  color: #2a6df4;
+  border-bottom: 3px solid #2a6df4;
+  /* Rotar un poquito para que parezca pegado a mano */
+  transform: rotate(-2deg);
+}
+
+
+/* --- FORMULARIOS (Inputs y Selects) --- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Espacio entre cada bloque de input */
+}
+
+label {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+}
+
+/* Estilo común para inputs de texto/número y selects */
+input[type="number"],
+input[type="text"],
+select {
+  width: 100%;
+  /* Que ocupen todo el ancho, como en la imagen */
+  padding: 12px 15px;
+  font-family: inherit;
+  /* Importante para heredar la fuente Patrick Hand */
+  font-size: 1.1rem;
+  background-color: #fff;
+
+  /* Borde estilo boceto, un poco más fino que el contenedor */
+  border: 2px solid #444;
+  border-radius: 4px 8px 3px 7px;
+  /* Sombra sólida pequeña */
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+
+  outline: none;
+  /* Quitamos el borde azul por defecto al hacer click */
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+/* Efecto al hacer foco en un input */
+input:focus,
+select:focus {
+  border-color: #2a6df4;
+  /* Cambia a azul */
+  box-shadow: 4px 4px 0px rgba(42, 109, 244, 0.3);
+  /* Sombra azulada */
+  transform: scale(1.01);
+  /* Se agranda un poquitito */
+}
+
+
+/* --- EL BOTÓN (El toque final) --- */
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #fff;
+
+  /* Borde grueso y sombra dura para que parezca dibujado y recortado */
+  border: 3px solid #222;
+  box-shadow: 6px 6px 0px #222;
+  border-radius: 5px;
+
+  /* Animación para que se sienta táctil */
+  transition: all 0.1s ease;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+/* Efecto al pasar el mouse (Hover) */
+button:hover {
+  background-color: #f0f0f0;
+  /* Se mueve un poco en dirección opuesta a la sombra */
+  top: -2px;
+  left: -2px;
+  box-shadow: 8px 8px 0px #222;
+}
+
+/* Efecto al hacer click (Active) */
+button:active {
+  /* Se hunde, cancelando el desplazamiento y reduciendo la sombra */
+  top: 4px;
+  left: 4px;
+  box-shadow: 2px 2px 0px #222;
+  background-color: #e0e0e0;
+}
