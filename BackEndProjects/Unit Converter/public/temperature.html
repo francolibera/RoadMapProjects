@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of a Backend Developer showcasing HTML projects and skills.">
+  <meta name="author" content="Franco Libera">
+  <title>Unit Converter</title>
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Length</a></li>
+        <li><a href="temperature.html">Temperature</a></li>
+        <li><a href="weight.html">Weight</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <form action="/convert-temperature" method="POST">
+    
+      <label>Valor a convertir:</label>
+      <input type="number" name="value" required step="any">
+    
+      <label>Desde:</label>
+      <select name="fromUnit">
+        <option value = "celsius">Celsius</option>
+        <option value = "fahrenheit">Fahrenheit</option>
+        <option value = "kelvin">Kelvin</option>
+      </select>
+    
+      <label>Hacia:</label>
+      <select name="toUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+    
+      <button type="submit">Convertir</button>
+    </form>
+
+  </main>
+
+
+</body>
+
+</html>
