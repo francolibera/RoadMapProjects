@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of a Backend Developer showcasing HTML projects and skills.">
+  <meta name="author" content="Franco Libera">
+  <title>Personal Blog</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .article-card {
+      border-bottom: 2px dashed #ccc;
+      padding: 20px 0;
+      margin-bottom: 10px;
+    }
+  
+    .article-card h2 {
+      margin: 0 0 5px 0;
+    }
+  
+    .date {
+      color: #666;
+      font-size: 0.9em;
+      font-style: italic;
+    }
+  
+    a {
+      text-decoration: none;
+      color: #333;
+    }
+  
+    a:hover h2 {
+      color: #2a6df4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sketch-container">
+    <div class="header-row">
+      <h1>My Personal Blog 📝</h1>
+      <a href="/admin" class="admin-btn" title="Go to Admin">🔐</a>
+    </div>
+
+    <div id="article-list">
+      <p style="text-align: center;">Loading...</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const listContainer = document.getElementById('article-list');
+
+      fetch('/api/articles')
+        .then(response => response.json())
+        .then(articles => {
+          listContainer.innerHTML = '';
+
+          if (articles.length === 0) {
+            listContainer.innerHTML = `
+                            <div style="text-align: center; padding: 40px;">
+                                <h3>Nothing here! 🍃</h3>
+                                <p>I haven't written any articles yet.</p>
+                            </div>`;
+            return;
+          }
+
+          articles.forEach(article => {
+            const card = document.createElement('div');
+            card.className = 'article-card';
+
+            // Make the entire card clickable
+            card.onclick = () => window.location.href = `/article/${article.slug}`;
+
+            // Formateamos la fecha un poco más bonita (opcional)
+            const fecha = new Date(article.date).toLocaleDateString('es-ES', {
+              year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            card.innerHTML = `
+                            <h2>${article.title}</h2>
+                            <span class="date">📅 ${fecha}</span>
+                            <p>${article.content.substring(0, 120)}...</p>
+                            <span class="read-more-btn">Read full note →</span>
+                        `;
+
+            listContainer.appendChild(card);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          listContainer.innerHTML = '<p>There was an error loading the blog :(</p>';
+        });
+    });
+  </script>
+</body>
+</html>

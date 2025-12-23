@@ -8,7 +8,7 @@ export interface Article {
     content: string;
 }
 
-const ARTICLES_DIR = path.join(__dirname, 'articles');
+const ARTICLES_DIR = path.join(__dirname, '../articles');
 
 export async function getAllArticles(): Promise<Article[]> {
   try {
@@ -46,3 +46,14 @@ export async function saveArticle(article: Article): Promise<void> {
   } catch (error) {
     console.error(`Error saving article with slug ${article.slug}:`, error);
   }}
+
+export async function deleteArticle(slug: string): Promise<boolean> {
+  try {
+    const filePath = path.join(ARTICLES_DIR, `${slug}.json`);
+    await fs.unlink(filePath);
+    return true;
+  } catch (error) {
+    console.error(`Error deleting article with slug ${slug}:`, error);
+    return false;
+  } 
+}
