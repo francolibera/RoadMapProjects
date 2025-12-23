@@ -9,6 +9,7 @@ Collection of projects completed from [roadmap.sh](https://roadmap.sh/dashboard)
 - **Expense Tracker**: CLI to record and list expenses with budgets. [View on roadmap.sh](https://roadmap.sh/projects/expense-tracker)
 - **Number Guessing Game**: CLI-based game, where you need to use the command line to interact with the game. [View on roadmap.sh](https://roadmap.sh/projects/number-guessing-game)
 - **Unit Converter**: Web app to convert length, weight, and temperature (Express + TypeScript). Live: https://unit-converter-lvh1.onrender.com/index.html. [View on roadmap.sh](https://roadmap.sh/projects/unit-converter)
+- **Personal Blog**: Minimalist blog built with Express.js and TypeScript. RESTful API with JSON file storage and admin authentication. [View on roadmap.sh](https://roadmap.sh/projects/personal-blog)
 
 ## Repository Structure
 
